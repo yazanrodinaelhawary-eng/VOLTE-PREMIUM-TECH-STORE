@@ -1,0 +1,784 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<meta name="description" content="VOLTÉ Premium Tech Store - متجر إلكترونيات فاخر تجريبي من تصميم VEXORA.">
+<title>VOLTÉ | Premium Tech Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#090909;
+  --surface:#151515;
+  --surface2:#1e1e1e;
+  --gold:#d4af37;
+  --lightgold:#f5d985;
+  --white:#f7f3e9;
+  --muted:#aaa;
+  --border:rgba(212,175,55,.24);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:Cairo,sans-serif;
+  line-height:1.8;
+}
+body.locked{overflow:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.container{width:min(1180px,92%);margin:auto}
+section{padding:75px 0}
+.gold{color:var(--gold)}
+.btn{
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:11px 23px;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  transition:.25s;
+}
+.btn-gold{
+  background:linear-gradient(120deg,#ad8124,#f5d985,#ad8124);
+  color:#090909;
+}
+.btn-outline{background:transparent;color:var(--gold)}
+.btn:hover:not(:disabled){transform:translateY(-2px)}
+.section-heading{text-align:center;margin-bottom:35px}
+.section-heading small{
+  color:var(--gold);
+  letter-spacing:3px;
+  font-weight:800;
+}
+.section-heading h2{font-size:clamp(27px,4vw,42px)}
+.section-heading p{color:var(--muted)}
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(9,9,9,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.nav{
+  min-height:76px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+.logo{
+  font-family:Montserrat,sans-serif;
+  font-size:29px;
+  font-weight:900;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+.nav-links{display:flex;list-style:none;gap:22px}
+.nav-links a{font-size:13px;font-weight:800}
+.nav-links a:hover{color:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.cart-button,.menu-button{
+  background:#1b1b1b;
+  border:1px solid var(--border);
+  color:var(--gold);
+  padding:8px 13px;
+  border-radius:8px;
+  font-size:17px;
+}
+.menu-button{display:none}
+.cart-count{
+  background:var(--gold);
+  color:black;
+  border-radius:20px;
+  font-size:11px;
+  padding:1px 7px;
+  font-weight:900;
+}
+.hero{
+  min-height:76vh;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.55)),
+    url("https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+}
+.hero-content{max-width:700px}
+.hero small{color:var(--gold);letter-spacing:3px;font-weight:800}
+.hero h1{
+  font-size:clamp(38px,7vw,75px);
+  line-height:1.35;
+  margin:17px 0;
+}
+.hero p{color:#d0d0d0;max-width:590px;margin-bottom:28px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap}
+.promo{
+  background:linear-gradient(110deg,#1b150b,#33260d,#1b150b);
+  text-align:center;
+  border-block:1px solid var(--border);
+  padding:30px 15px;
+}
+.promo h2{color:var(--lightgold);font-size:clamp(24px,4vw,36px)}
+.promo p{color:#ddd;font-size:14px}
+.shop{background:#101010}
+.toolbar{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.search-input,.sort-select{
+  background:#1b1b1b;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px 15px;
+  color:white;
+}
+.search-input{flex:1;min-width:180px}
+.sort-select{min-width:160px}
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:30px;
+}
+.filter{
+  background:#1c1c1c;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:8px 18px;
+}
+.filter.active{background:var(--gold);color:black;font-weight:900}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.product-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+  overflow:hidden;
+  transition:.25s;
+}
+.product-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--gold);
+}
+.product-image{
+  height:225px;
+  background:#e8e6e1;
+  position:relative;
+}
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.discount-tag{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:var(--gold);
+  color:black;
+  padding:3px 10px;
+  font-size:12px;
+  border-radius:5px;
+  font-weight:900;
+}
+.product-info{padding:22px}
+.product-info small{color:var(--muted)}
+.product-info h3{font-size:18px;margin:7px 0}
+.product-info p{color:var(--muted);font-size:12px;min-height:45px}
+.price-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:15px 0;
+}
+.price{color:var(--gold);font-size:23px;font-weight:900}
+.old-price{color:#888;text-decoration:line-through;font-size:13px}
+.add-cart{width:100%}
+.empty-results{
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  padding:45px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.feature{
+  text-align:center;
+  padding:28px 17px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.feature .emoji{font-size:32px}
+.feature h3{color:var(--gold);margin:12px 0;font-size:17px}
+.feature p{color:var(--muted);font-size:12px}
+.faq{background:#111}
+.faq-list{max-width:850px;margin:auto}
+.faq-item{
+  border:1px solid var(--border);
+  background:#191919;
+  margin-bottom:12px;
+  border-radius:8px;
+  overflow:hidden;
+}
+.faq-question{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:white;
+  text-align:right;
+  padding:18px;
+  font-weight:800;
+  display:flex;
+  justify-content:space-between;
+}
+.faq-question span{color:var(--gold)}
+.faq-answer{
+  display:none;
+  color:var(--muted);
+  padding:0 18px 18px;
+  font-size:13px;
+}
+.faq-item.active .faq-answer{display:block}
+footer{
+  text-align:center;
+  padding:45px 0;
+  border-top:1px solid var(--border);
+}
+footer h2{
+  font-family:Montserrat,sans-serif;
+  color:var(--gold);
+  font-size:35px;
+}
+footer p{color:var(--muted);font-size:12px;margin-top:10px}
+.footer-links{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin:20px 0;
+}
+.footer-links a{font-size:12px}
+.demo-note{color:var(--gold)!important}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  z-index:100;
+  display:none;
+}
+.overlay.show{display:block}
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:min(440px,100%);
+  background:#141414;
+  border-left:1px solid var(--border);
+  z-index:101;
+  transform:translateX(105%);
+  transition:transform .3s;
+  display:flex;
+  flex-direction:column;
+}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+  border-bottom:1px solid var(--border);
+}
+.cart-header h2{color:var(--gold)}
+.close-cart{
+  background:transparent;
+  color:white;
+  border:0;
+  font-size:28px;
+}
+.cart-items{
+  flex:1;
+  overflow-y:auto;
+  padding:20px;
+}
+.cart-item{
+  display:flex;
+  gap:13px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
+}
+.cart-item img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:7px;
+  background:#eee;
+}
+.cart-item-info{flex:1}
+.cart-item-info h3{font-size:14px}
+.cart-item-info p{color:var(--gold);font-weight:800}
+.quantity-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:8px;
+}
+.quantity-controls button{
+  background:#292929;
+  color:white;
+  border:1px solid var(--border);
+  padding:2px 9px;
+  border-radius:4px;
+}
+.remove-item{
+  color:#ff8b8b!important;
+  margin-right:auto;
+}
+.cart-footer{
+  padding:20px;
+  border-top:1px solid var(--border);
+}
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-weight:900;
+  font-size:20px;
+  margin-bottom:15px;
+}
+.cart-total strong{color:var(--gold)}
+.cart-footer .btn{width:100%}
+.cart-empty{text-align:center;color:var(--muted);padding:50px 10px}
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:110;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+.modal.show{display:flex}
+.modal-box{
+  width:min(480px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  background:#1b1b1b;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:25px;
+}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+.modal-head h2{color:var(--gold)}
+.modal-close{
+  background:none;
+  border:0;
+  color:white;
+  font-size:27px;
+}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;color:var(--gold-light);margin-bottom:5px}
+.form-group input,.form-group select{
+  width:100%;
+  padding:11px;
+  background:#0d0d0d;
+  color:white;
+  border:1px solid #55472b;
+  border-radius:6px;
+}
+.form-note{font-size:12px;color:var(--muted);margin:12px 0}
+#checkoutMessage{display:none;color:var(--gold-light);margin-top:12px;text-align:center}
+@media(max-width:900px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  section{padding:55px 0}
+  .menu-button{display:block}
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:76px;
+    right:0;
+    left:0;
+    background:#111;
+    padding:22px;
+    flex-direction:column;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-links.open{display:flex}
+  .logo{font-size:23px}
+  .hero{min-height:72vh}
+  .hero-actions{flex-direction:column}
+  .product-grid{grid-template-columns:1fr}
+  .features-grid{gap:10px}
+  .feature{padding:20px 10px}
+  .feature h3{font-size:14px}
+  .toolbar{flex-direction:column}
+  .search-input,.sort-select{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">VOLTÉ</a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">الرئيسية</a></li>
+      <li><a href="#products">المنتجات</a></li>
+      <li><a href="#features">مميزاتنا</a></li>
+      <li><a href="#faq">الأسئلة الشائعة</a></li>
+      <li><a href="#contact">التواصل</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="cart-button" id="openCart" aria-label="فتح سلة المشتريات">
+        🛒 <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-button" id="menuButton" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <small>PREMIUM TECH COLLECTION</small>
+      <h1>التكنولوجيا <span class="gold">بمستوى آخر</span></h1>
+      <p>
+        اكتشف عالم VOLTÉ، حيث يلتقي التصميم الراقي
+        بأحدث الأجهزة والإكسسوارات التقنية.
+        تجربة تسوق رقمية تجمع بين الأناقة والبساطة.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-gold">تسوق المجموعة</a>
+        <a href="#features" class="btn btn-outline">اكتشف مميزاتنا</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="promo">
+  <h2>عروض تصل إلى 30%</h2>
+  <p>خصومات تجريبية على مجموعة مختارة من المنتجات</p>
+</div>
+
+<section class="shop" id="products">
+  <div class="container">
+
+    <div class="section-heading">
+      <small>OUR COLLECTION</small>
+      <h2>منتجاتنا <span class="gold">المميزة</span></h2>
+      <p>اختر المنتج المناسب واستمتع بتجربة تسوق تفاعلية.</p>
+    </div>
+
+    <div class="toolbar">
+      <input class="search-input" id="searchInput" type="search" placeholder="ابحث عن منتج...">
+      <select class="sort-select" id="sortSelect" aria-label="ترتيب المنتجات">
+        <option value="default">الترتيب الافتراضي</option>
+        <option value="low">السعر: من الأقل للأعلى</option>
+        <option value="high">السعر: من الأعلى للأقل</option>
+      </select>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter active" data-category="all">جميع المنتجات</button>
+      <button class="filter" data-category="audio">الصوتيات</button>
+      <button class="filter" data-category="wearables">الساعات الذكية</button>
+      <button class="filter" data-category="accessories">الإكسسوارات</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="section-heading">
+      <small>WHY VOLTÉ</small>
+      <h2>تجربة <span class="gold">مختلفة</span></h2>
+      <p>واجهة متجر مصممة لتجمع بين الفخامة وسهولة الاستخدام.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="emoji">💎</div>
+        <h3>تصميم فاخر</h3>
+        <p>تجربة بصرية أنيقة ومميزة.</p>
+      </div>
+      <div class="feature">
+        <div class="emoji">📱</div>
+        <h3>متوافق مع الموبايل</h3>
+        <p>تصفح مريح على مختلف الشاشات.</p>
+      </div>
+      <div class="feature">
+        <div class="emoji">🛒</div>
+        <h3>سلة تفاعلية</h3>
+        <p>إضافة المنتجات وتعديل الكميات بسهولة.</p>
+      </div>
+      <div class="feature">
+        <div class="emoji">⚡</div>
+        <h3>تجربة سريعة</h3>
+        <p>بحث وتصنيفات للوصول للمنتجات.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <small>FAQ</small>
+      <h2>الأسئلة <span class="gold">الشائعة</span></h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          هل يمكن إضافة منتجات للسلة؟
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          نعم، يمكنك إضافة المنتجات وتعديل الكميات وحذفها من السلة.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          هل المتجر يدعم الدفع الإلكتروني؟
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          هذه نسخة تجريبية لعرض مهارات التصميم والتطوير.
+          لا توجد عمليات دفع حقيقية.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          هل يتم حفظ السلة؟
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          يتم حفظ السلة محليًا في متصفحك، إذا كانت إعدادات المتصفح تسمح بذلك.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          هل يمكن تحويل النموذج إلى متجر حقيقي؟
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          نعم، لكن ذلك يتطلب تطوير نظام خلفي وربط قاعدة بيانات
+          ووسائل دفع وشحن آمنة.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-heading">
+      <small>CONTACT</small>
+      <h2>VOLTÉ <span class="gold">PREMIUM TECH</span></h2>
+      <p>
+        مشروع متجر إلكتروني تجريبي لعرض مهارات
+        تصميم وتطوير واجهات المتاجر الإلكترونية.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <h2>VOLTÉ</h2>
+    <p>PREMIUM TECH STORE</p>
+
+    <div class="footer-links">
+      <a href="#home">الرئيسية</a>
+      <a href="#products">المنتجات</a>
+      <a href="#features">المميزات</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+    </div>
+
+    <p>© <span id="year"></span> VOLTÉ. All Rights Reserved.</p>
+    <p class="demo-note">
+      مشروع تجريبي من VEXORA Digital Design Studio.
+      المنتجات والأسعار للعرض فقط.
+    </p>
+  </div>
+</footer>
+
+<!-- CART -->
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="cart-drawer" id="cartDrawer" aria-label="سلة المشتريات" aria-hidden="true">
+  <div class="cart-header">
+    <h2>سلة المشتريات</h2>
+    <button class="close-cart" id="closeCart" aria-label="إغلاق السلة">×</button>
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>الإجمالي</span>
+      <strong id="cartTotal">0 ر.س</strong>
+    </div>
+    <button class="btn btn-gold" id="checkoutButton">
+      إتمام الطلب التجريبي
+    </button>
+  </div>
+</aside>
+
+<!-- CHECKOUT MODAL -->
+
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-label="إتمام الطلب التجريبي">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>إتمام الطلب</h2>
+      <button class="modal-close" id="closeCheckout" aria-label="إغلاق">×</button>
+    </div>
+
+    <form id="checkoutForm">
+      <div class="form-group">
+        <label for="customerName">الاسم</label>
+        <input id="customerName" type="text" required placeholder="اسم تجريبي">
+      </div>
+
+      <div class="form-group">
+        <label for="customerCity">المدينة</label>
+        <input id="customerCity" type="text" required placeholder="المدينة">
+      </div>
+
+      <div class="form-group">
+        <label for="deliveryMethod">طريقة الاستلام</label>
+        <select id="deliveryMethod" required>
+          <option value="">اختر الطريقة</option>
+          <option value="delivery">توصيل تجريبي</option>
+          <option value="pickup">استلام تجريبي</option>
+        </select>
+      </div>
+
+      <p class="form-note">
+        هذا نموذج توضيحي فقط. لا تدخل بيانات شخصية حقيقية.
+        لن يتم إرسال الطلب أو تحصيل أي مبلغ.
+      </p>
+
+      <button type="submit" class="btn btn-gold" style="width:100%">
+        تأكيد الطلب التجريبي
+      </button>
+
+      <p id="checkoutMessage" role="status"></p>
+    </form>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const products = [
+    {
+      id:1,
+      name:"سماعة VOLTÉ Pro",
+      category:"audio",
+      price:349,
+      oldPrice:499,
+      description:"سماعة لاسلكية بتصميم أنيق وتجربة صوت غامرة.",
+      image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=85"
+    },
+    {
+      id:2,
+      name:"ساعة VOLTÉ Smart",
+      category:"wearables",
+      price:599,
+      oldPrice:799,
+      description:"ساعة ذكية عصرية لمتابعة نشاطك اليومي.",
+      image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=85"
+    },
+    {
+      id:3,
+      name:"سماعة Studio Wireless",
+      category:"audio",
+      price:279,
+      oldPrice:399,
+      description:"تصميم مريح للاستخدام اليومي والموسيقى.",
+      image:"https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=85"
+    },
+    {
+      id:4,
+      name:"إكسسوار Premium Desk",
+      category:"accessories",
+      price:129,
+      oldPrice:169,
+      description:"قطعة تقنية أنيقة لإكمال مساحة عملك.",
+      image:"https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=85"
+    },
+    {
+      id:5,
+      name:"ساعة Classic Edition",
+      category:"wearables",
+      price:449,
+      oldPrice:599,
+      description:"ساعة بتصميم كلاسيكي يناسب إطلالتك.",
+      image:"https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=85"
+    },
+    {
+      id:6,
+      name:"سماعات Compact Buds",
+      category:"audio",
+      price:199,
+      oldPrice:269,
+      description:"سماعات صغيرة وخفيفة للاستخدام اليومي.",
+      image:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=85"
+    }
+  ];
+
+  const productGrid = document.getElementById("productGrid");
+  const searchInput = document.getElementById("searchInput");
+  const sortSelect = document.getElementById("sortSelect");
+  const filters = document.querySelectorAll(".filter");
+
+  const cartDrawer 
